@@ -1,13 +1,37 @@
 package arrayValidation;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class arrayValid {
 	
+	public static boolean isValid(String email) {
+		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
+                "[a-zA-Z0-9_+&*-]+)*@" + 
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
+                "A-Z]{2,7}$"; 
+                  
+		Pattern pat = Pattern.compile(emailRegex); 
+		if (email == null) 
+			return false; 
+		return pat.matcher(email).matches(); 
+	}
+	
 	public static void main(String[] args) {
-		String[] employeeIDs = {"uxm110630", "fhm586938", "eht372839", "hti123940", "aft492837"}; //array of IDs. Can add or remove some if you want
+		@SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Please input the emails");
+		String emails = scan.nextLine();
+		String[] employeeIDs = emails.split("\\s");
+		for (int i = 0; i < employeeIDs.length; i++) {
+			if (isValid(employeeIDs[i]))
+				System.out.println(employeeIDs[i] + " is valid");
+			else
+				System.out.println(employeeIDs[i] + " is not valid");
+		}
 		String a;
+		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
-		System.out.println("Enter ID: ");
+		System.out.println("Enter ID you wish to search for: ");
 		a = input.next();
 		int flag = 0;
 		int i = 0;
